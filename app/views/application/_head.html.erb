@@ -1,0 +1,17 @@
+<div class="head">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" 
+            content="width=device-width, 
+                    initial-scale=1.0" />
+        <h1 style="padding-bottom: 0px;"> Welcome to SPARC</h1>
+        <h3 style="text-align: center; padding-top: 0px;">(Systemized Policy and Regulatory Controls)</h3>
+        <div class="in-line"> 
+        <%= link_to "Home", root_path %>&nbsp;&nbsp;&nbsp;
+        <%= link_to "New Control", new_catalog_path if authenticated? %>&nbsp;&nbsp;&nbsp;
+        <%= link_to "Login", new_session_path unless authenticated? %>&nbsp;&nbsp;&nbsp;
+        <%= button_to "Log Out", session_path, method: :delete if authenticated? %>
+        </div>
+    </head>
+</div>
