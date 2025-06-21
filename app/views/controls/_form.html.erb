@@ -1,0 +1,51 @@
+<%= form_with model: control do |form|%>
+    <%= link_to "Cancel", controls_path%><br><br>
+    <div>
+        <%= form.label "Control ID" %>
+        <%= form.text_field :name%>
+    </div>
+    <br>
+     <div>
+    <%= form.label :family, style: "display: block" %>
+    <%= form.rich_text_area :family %>
+    <br>
+    <%= form.label :title, style: "display: block" %>
+    <%= form.rich_text_area :title %>
+    <br>
+    <%= form.label :language, style: "display: block" %>
+    <%= form.rich_text_area :language %>
+    <br>
+    <%= form.label :supplemental_guidance, style: "display: block" %>
+    <%= form.rich_text_area :supplemental_guidance %>
+    <br>
+    <%= form.label :implementation_guidance, style: "display: block" %>
+    <%= form.rich_text_area :implementation_guidance %>
+    <br>
+    <%= form.label :nist_discussion, style: "display: block" %>
+    <%= form.rich_text_area :nist_discussion %>
+    <br>
+    <%= form.label :nist_reference, style: "display: block" %>
+    <%= form.rich_text_area :nist_reference %>
+    <br>
+    <%= form.label :related_controls, style: "display: block" %>
+    <%= form.rich_text_area :related_controls %>
+    <br>
+    <%= form.label :pvt_ref, style: "display: block" %>
+    <%= form.rich_text_area :pvt_ref %>
+    <br>
+    <%= form.label :overlay, style: "display: block" %>
+    <%= form.rich_text_area :overlay %>
+    <br>
+    <%= form.label :nist_control, style: "display: block" %>
+    <%= form.rich_text_area :nist_control %>
+    <br>
+    <%= form.label :check, style: "display: block" %>
+    <%= form.rich_text_area :check %>
+    <br>
+    <%= form.label :fix, style: "display: block" %>
+    <%= form.rich_text_area :fix %>
+    </div>
+    <div>
+        <%= form.submit%>
+    </div>
+<% end %>

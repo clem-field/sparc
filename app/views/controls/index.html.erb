@@ -1,2 +1,11 @@
-<h1>Controls#index</h1>
-<p>Find me in app/views/controls/index.html.erb</p>
+<%= render "application/head" %>
+
+
+<div id="controls">
+    <% @controls.each do |control| %>
+        <div>
+            <%= link_to control.name, control %>
+        </div>
+    <% end %>
+</div>
+<%= render "application/footer" %>

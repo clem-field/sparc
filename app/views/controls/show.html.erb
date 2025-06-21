@@ -1,0 +1,44 @@
+<%= render "application/page_head" %>
+<div class="in-line">
+    <%= link_to "Back", controls_path %>&nbsp;&nbsp;&nbsp;
+    <% if authenticated? %>
+        <%= link_to "Edit", edit_control_path(@control) %>&nbsp;&nbsp;&nbsp;
+        <%= button_to "Delete", @control, method: :delete, data: {
+    turbo_confirm: "Are you sure?" } %>
+    <% end %>
+</div>
+<section class="control">
+    <section class="control-info">
+    <% cache @control do %>
+        <h1><%= @control.name %></h1>
+        <h2>Control Family</h2>
+        <%= @control.family %>
+        <h2>Title</h2>
+        <%= @control.title %>
+        <h2>Language</h2>
+        <%= @control.language %>
+        <h2>Supplemental Guidance</h2>
+        <%= @control.supplemental_guidance %>
+        <h2>Implementation Guidance</h2>
+        <p>Enter "None" if not available</p> 
+        <%= @control.implementation_guidance %>
+        <h2>NIST Discussion</h2>
+        <%= @control.nist_discussion %>
+        <h2>NIST References</h2>
+        <%= @control.nist_reference %>
+        <h2>Releated Controls</h2>
+        <%= @control.related_controls %>
+        <h2>Internal References</h2>
+        <%= @control.pvt_ref %>
+        <h2>Applicable Overlays</h2>
+        <%= @control.overlay %>
+        <h2>NIST Control Variants</h2>
+        <%= @control.nist_control %>
+        <h2>Check</h2>
+        <%= @control.check %>
+        <h2>Fix</h2>
+        <%= @control.fix %>
+    <% end %>
+    </section>
+</section>
+<%= render "application/footer" %>

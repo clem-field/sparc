@@ -1,4 +1,9 @@
 Rails.application.routes.draw do
+  devise_for :users
+  resource :session
+  resources :passwords, param: :token
+  resources :controls
+  root "controls#index"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
@@ -11,5 +16,19 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "posts#index"
-  resources :controls
+
+  # adding oauth controller
+  resources :oauth, param: :provider, controller: "oauth", only: :show do
+  get :callback, on: :member
+  end
+
+  # Adding omniauth
+  get 'auth/:provider/callback', to: 'sessions#create'
+  get '/login', to: 'sessions#new'
 end
+
+
+# Rails.application.routes.draw do
+  devise_for :users
+#   resources :controls
+# end
