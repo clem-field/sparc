@@ -23,12 +23,12 @@ Rails.application.routes.draw do
   end
 
   # Adding omniauth
-  get 'auth/:provider/callback', to: 'sessions#create'
-  get '/login', to: 'sessions#new'
+  get "auth/:provider/callback", to: "sessions#create"
+  get "/login", to: "sessions#new"
 end
 
 
-# Rails.application.routes.draw do
+  # Rails.application.routes.draw do
   devise_for :users
 #   resources :controls
 # end

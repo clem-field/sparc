@@ -17,23 +17,23 @@ gem "stimulus-rails"
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 gem "jbuilder"
 # Add Devise for authentication
-gem 'devise'
+gem "devise"
 # Use Omniauth to support additional login providers
-gem 'omniauth', '~> 2.1'
+gem "omniauth", "~> 2.1"
 # LDAP Auth
 # GitLab fork with several improvements to original library. For full list of changes
 # see https://github.com/intridea/omniauth-ldap/compare/master...gitlabhq:master
-gem 'gitlab_omniauth-ldap', '~> 2.2.0', require: 'omniauth-ldap'
+gem "gitlab_omniauth-ldap", "~> 2.2.0", require: "omniauth-ldap"
 # Allow users to sign in with GitHub
-gem 'omniauth-github'
+gem "omniauth-github"
 # https://github.com/omniauth/omniauth/wiki/Resolving-CVE-2015-9284
-gem 'omniauth-rails_csrf_protection', '~> 1.0'
+gem "omniauth-rails_csrf_protection", "~> 1.0"
 # Allow users to sign in with OIDC providers
-gem 'omniauth_openid_connect', '~> 0.6.0'
+gem "omniauth_openid_connect", "~> 0.6.0"
 # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
 gem "bcrypt", "~> 3.1.7"
 # Using roo to import data for salting
-gem 'roo', '~> 2.10'
+gem "roo", "~> 2.10"
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem "tzinfo-data", platforms: %i[ windows jruby ]

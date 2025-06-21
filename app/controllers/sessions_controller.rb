@@ -24,6 +24,4 @@ class SessionsController < ApplicationController
     terminate_session
     redirect_to new_session_path
   end
-
-
 end
