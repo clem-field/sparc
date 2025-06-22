@@ -1,11 +1,20 @@
 Rails.application.routes.draw do
-  devise_for :users
+  devise_for :users, controllers: {
+    omniauth_callbacks: "users/omniauth_callbacks",
+    sessions: "sessions"
+  }
   resource :session
   resources :passwords, param: :token
-  resources :controls
-  root "controls#index"
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
+  # adding oauth controller
+  resources :oauth, param: :provider, controller: "oauth", only: :show do
+  get :callback, on: :member
+  end
+  # Adding omniauth
+  get "auth/:provider/callback", to: "sessions#create"
+  get "/login", to: "sessions#new"
 
+  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
+  root "controls#index"
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
   # Can be used by load balancers and uptime monitors to verify that the app is live.
   get "up" => "rails/health#show", as: :rails_health_check
@@ -16,19 +25,10 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "posts#index"
-
-  # adding oauth controller
-  resources :oauth, param: :provider, controller: "oauth", only: :show do
-  get :callback, on: :member
-  end
-
-  # Adding omniauth
-  get "auth/:provider/callback", to: "sessions#create"
-  get "/login", to: "sessions#new"
 end
 
-
-  # Rails.application.routes.draw do
-  devise_for :users
-#   resources :controls
-# end
+Rails.application.routes.draw do
+  resource :session
+  resources :passwords, param: :token
+  resources :catalogs
+end

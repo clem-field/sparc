@@ -1,9 +1,12 @@
-class ControlsController < ApplicationController
-  before_action :set_catalog, only: %i[ show edit update]
+class CatalogsController < ApplicationController
+  before_action :set_control, only: %i[ show edit update]
   allow_unauthenticated_access only: %i[ index show
 ]
   def index
     @controls = Catalog.all
+  end
+
+  def show
   end
 
   def new
@@ -32,13 +35,13 @@ class ControlsController < ApplicationController
   end
 
   def destroy
-    @catalog.destroy
-    redirect_to catalog_path
+    @control.destroy
+    redirect_to catalogs_path
   end
 
   private
-    def set_catalog
-      @catalog = Catalog.find(params[:id])
+    def set_control
+      @control = Catalog.find(params[:id])
     end
 
     # Only allow a list of trusted parameters through.

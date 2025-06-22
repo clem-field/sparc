@@ -34,6 +34,8 @@ gem "omniauth_openid_connect", "~> 0.6.0"
 gem "bcrypt", "~> 3.1.7"
 # Using roo to import data for salting
 gem "roo", "~> 2.10"
+# Using Okta with omni-auth
+gem "omniauth-okta"
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem "tzinfo-data", platforms: %i[ windows jruby ]

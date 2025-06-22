@@ -1,8 +1,8 @@
 <%= render "application/page_head" %>
 <div class="in-line">
-    <%= link_to "Back", controls_path %>&nbsp;&nbsp;&nbsp;
+    <%= link_to "Back", catalogs_path %>&nbsp;&nbsp;&nbsp;
     <% if authenticated? %>
-        <%= link_to "Edit", edit_control_path(@control) %>&nbsp;&nbsp;&nbsp;
+        <%= link_to "Edit", edit_catalog_path(@control) %>&nbsp;&nbsp;&nbsp;
         <%= button_to "Delete", @control, method: :delete, data: {
     turbo_confirm: "Are you sure?" } %>
     <% end %>
@@ -10,7 +10,7 @@
 <section class="control">
     <section class="control-info">
     <% cache @control do %>
-        <h1><%= @control.name %></h1>
+        <h1><%= @control.control_id %></h1>
         <h2>Control Family</h2>
         <%= @control.family %>
         <h2>Title</h2>

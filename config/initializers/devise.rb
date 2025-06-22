@@ -305,9 +305,23 @@ Devise.setup do |config|
   config.responder.error_status = :unprocessable_entity
   config.responder.redirect_status = :see_other
 
-  # ==> Configuration for :registerable
+    # ==> Configuration for :registerable
 
-  # When set to false, does not sign a user in automatically after their password is
-  # changed. Defaults to true, so a user is signed in automatically after changing a password.
-  # config.sign_in_after_change_password = true
+    # When set to false, does not sign a user in automatically after their password is
+    # changed. Defaults to true, so a user is signed in automatically after changing a password.
+    # config.sign_in_after_change_password = true
+
+    require "omniauth-okta"
+    config.omniauth(:okta,
+                  ENV["OKTA_CLIENT_ID"],
+                  ENV["OKTA_CLIENT_SECRET"],
+                  scope: "openid profile email",
+                  fields: [ "profile", "email" ],
+                  client_options: {
+                    site:          "https://your-org.okta.com",
+                    authorize_url: "https://your-org.okta.com/oauth2/default/v1/authorize",
+                    token_url:     "https://your-org.okta.com/oauth2/default/v1/token",
+                    user_info_url: "https://your-org.okta.com/oauth2/default/v1/userinfo"
+                  },
+                  strategy_class: OmniAuth::Strategies::Okta)
 end
