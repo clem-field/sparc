@@ -29,7 +29,7 @@ gem "omniauth-github"
 # https://github.com/omniauth/omniauth/wiki/Resolving-CVE-2015-9284
 gem "omniauth-rails_csrf_protection", "~> 1.0"
 # Allow users to sign in with OIDC providers
-gem "omniauth_openid_connect", "~> 0.6.0"
+gem "omniauth_openid_connect", "~> 0.8.0"
 # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
 gem "bcrypt", "~> 3.1.7"
 # Using roo to import data for salting
