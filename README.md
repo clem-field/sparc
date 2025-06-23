@@ -11,7 +11,6 @@ SPARC is a powerful control catalog management platform purpose-built to streaml
 
 - NIST 800-53 Rev. 5
 - Baselines (Low, Moderate, High)
-- CNSSI 1253
 - ISO 27001, CIS Benchmarks (via mappings)
 - Custom internal control overlays
 
@@ -56,18 +55,64 @@ Traditional compliance methods are manual, siloed, and slow. SPARC replaces spre
 
 Requirements:
 
-* Ruby version
-  3.2.1
-
-* Rails Version
-  8.0.2
-
 * System dependencies
+- Ruby ~>3.2.1
+- Rails ~>8.0.2
+- view sparc/Gemfile.rb for all gems used in SPARC
 
 * Configuration
+- Environment variables are set up in either the .env or sparc.yaml. (see SPARC_ENVIRONMENT_VARIABLES for available configurations)
+- SPARC uses openauth for enabling OpenID MFA. There are 2 available configurations [ OKTA, GitHub ] at this time.
+
+* Existing control import
+- scripts/* contains a simple python script that will import NIST R4 and R5 compliant catalogs from .xlsx into SPARC's catalog database. This allows users
+to import their existing catalogs as needed. There are required file names, locations and columns for the import to be successful.
+
+| File Name | File Location |
+|-----------|---------------|
+| 800-53-r4.xlsx | sparc\lib\ |
+| 800-53-r5.xlsx | sparc\lib\ |
+| 800-53a-r4.xlsx | sparc\lib\ |
+| 800-53a-r5.xlsx | sparc\lib\ |
+
+---
+
+- Required Columns
+Note: order of columns does not matter for either file
+
+Catalog File Columns:
+
+| Column Name | Description |
+|-------------|-------------|
+| family | NIST or other control family |
+| control_id | the control name (e.g. - AC-1) |
+| language | the base control language |
+| supplemental_guidance | any supplemental guidance for the control |
+| implementation_guidance | any implementation guidance to satisfy the control |
+| nist_references | any supporting NIST references (e.g. - NIST-800-53v4, NIST-800-53a-v4)
+| internal_references | any applicable internal policies related to the control |
+| priority | the prioritiy of implementing the control |
+| check | how is the control checked/validated |
+| fix | how can a failing control be fixed |
+
+---
+
+Part A columns: (need to revisit) 
+
+| Columne Name | Description |
+|--------------|-------------|
+| family | NIST or other control family |
+| control_id | the control name (e.g. - AC-1) |
+| test | the test to be performed |
+| expected_results | what the output of the test is |
+
+---
+
+
+
 
 * Database creation
-  db:migrate 
+  db:migrate
 
 * Database initialization
 
@@ -76,8 +121,13 @@ Requirements:
 * Services (job queues, cache servers, search engines, etc.)
 
 * Deployment instructions
-  git clone 
-  cd 
+- git clone 
+- cd ./sparc
+- bundle install (required for local development)
+- configure environment variables
+- bin/rails server
+- navigate to https://127.0.0.1:3000
+ 
 
 🤝 Contributing
 
