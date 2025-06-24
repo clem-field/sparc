@@ -56,7 +56,7 @@ Traditional compliance methods are manual, siloed, and slow. SPARC replaces spre
 Requirements:
 
 * System dependencies
-- Ruby ~>3.2.1
+- Ruby ~>3.2.1 (see https://github.com/ruby/ruby/blob/master/doc/contributing/building_ruby.md to install without brew)
 - Rails ~>8.0.2
 - view sparc/Gemfile.rb for all gems used in SPARC
 
@@ -68,43 +68,51 @@ Requirements:
 - scripts/* contains a simple python script that will import NIST R4 and R5 compliant catalogs from .xlsx into SPARC's catalog database. This allows users
 to import their existing catalogs as needed. There are required file names, locations and columns for the import to be successful.
 
-| File Name | File Location |
-|-----------|---------------|
-| 800-53-r4.xlsx | sparc\lib\ |
-| 800-53-r5.xlsx | sparc\lib\ |
-| 800-53a-r4.xlsx | sparc\lib\ |
-| 800-53a-r5.xlsx | sparc\lib\ |
+* Example files to update and where they are located
+
+| File Name | File Location | File Type |
+|-----------|---------------|-----------|
+| 800-53-rev-controls.xlsx | sparc\lib | intput |
+| 800-53-r4.xlsx | sparc\lib\ | output |
+| 800-53a-rev4-objectives.xlsx | sparc\lib | intput |
+| 800-53a-r4.xlsx | sparc\lib\ | output |
 
 ---
 
 - Required Columns
-Note: order of columns does not matter for either file
+Note: order of columns does not matter for either file and null/NaN will be filled in with "Not Available at creation"
 
 Catalog File Columns:
 
-| Column Name | Description |
-|-------------|-------------|
-| family | NIST or other control family |
-| control_id | the control name (e.g. - AC-1) |
-| language | the base control language |
-| supplemental_guidance | any supplemental guidance for the control |
-| implementation_guidance | any implementation guidance to satisfy the control |
-| nist_references | any supporting NIST references (e.g. - NIST-800-53v4, NIST-800-53a-v4)
-| internal_references | any applicable internal policies related to the control |
-| priority | the prioritiy of implementing the control |
-| check | how is the control checked/validated |
-| fix | how can a failing control be fixed |
+| Column Name | Description | Example |
+|-------------|-------------|---------|
+| family | NIST or other control family | ACCESS CONTROL |
+| control_id | the control name | AC-1 |
+| title | control title | ACCESS CONTROL POLICY AND PROCEDURES |
+| priority | the prioritiy of implementing the control | P1 |
+| overlay | which baselines or overlays the control applies to | LOW, MODERATE, HIGH |
+| language | the base control language | The organization: |
+| related_controls | any controls that are considered part of the control | PM-9 |
+| supplemental_guidance | any supplemental guidance for the control | This control addresses the establishment of policy and proceedure... |
+| implementation_guidance | any implementation guidance to satisfy the control | to be added |
+| nist_references | any supporting NIST references | NIST-800-53v4, NIST-800-53a-v4 |
+| internal_references | any applicable internal policies related to the control | PR.AC-001 |
+| check | how is the control checked/validated | Examine supporting policy documents |
+| fix | how can a failing control be fixed | Ensure that policy establishes policy sufficient to implement RACI and frequency of review |
 
 ---
 
-Part A columns: (need to revisit) 
+Part A columns: 
 
-| Columne Name | Description |
-|--------------|-------------|
-| family | NIST or other control family |
-| control_id | the control name (e.g. - AC-1) |
-| test | the test to be performed |
-| expected_results | what the output of the test is |
+| Columne Name | Description | Example |
+|--------------|-------------|---------|
+| family | NIST or other control family | ACCESS CONTROL |
+| control_id | the control name | AC-1 |
+| title | control title | ACCESS CONTROL POLICY AND PROCEDURES |
+| decision | what determines pass/fail | Determine if the organization: ... |
+| examine | What needs to be reviewed/tested | Access control policy and proceedures reference... |
+| test | the test to be performed | Organizational processes account management on the information ... |
+| interview | what the output of the test is | Organizational personnel with access control responsibilities... |
 
 ---
 
