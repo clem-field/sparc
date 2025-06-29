@@ -3,7 +3,12 @@ class CatalogsController < ApplicationController
   allow_unauthenticated_access only: %i[ index show
 ]
   def index
-    @controls = Catalog.all
+    if params[:column].present?
+      @controls = Catalog.order("#{params[:column]} #{params[:direction]}")
+    else
+      @controls = Catalog.all
+      @families = Catalog.all
+    end
   end
 
   def show

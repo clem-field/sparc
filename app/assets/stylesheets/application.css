@@ -13,6 +13,9 @@
   Color Schema from:
   https://www.nceas.ucsb.edu/sites/default/files/2022-06/Colorblind%20Safe%20Color%20Schemes.pdf
 */
+
+
+
 :root{
   --cream:         rgb(238, 236, 236);
   --gray:          rgb(221,221,221);
@@ -29,7 +32,7 @@
 /* Setup Header */
 .head {
   height: auto;
-  width: auto;
+  width: device-width;
   color:var(--green);
 }
 * {
@@ -258,4 +261,45 @@ section.catalog img {
   display: flex;
   flex-direction: row;
   margin: 10px;
+}
+
+.sort {
+  position: absolute;
+  top: 1rem;
+  left: 0.5rem;
+  width: 0;
+  height: 0;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+}
+
+.sort-desc {
+  border-top: 8px solid #fff;
+}
+
+.sort-asc {
+  border-bottom: 8px solid #fff;
+}
+
+.table {
+  color: var(--dark-green);
+  border-color: var(--gray);
+  border-radius: 3px;
+  border-width: 2px;
+}
+.table-header {
+  color: var(--cream);
+  background-color: var(--dark-green);
+}
+
+
+.table-body {
+  color: var(--dark-green);
+  border-radius: 3px;
+  border-color: var(--gray);
+  border-width: 3px;
+}
+
+.lists {
+  color: var(--dark-green);
 }

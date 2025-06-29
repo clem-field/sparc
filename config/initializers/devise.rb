@@ -310,18 +310,20 @@ Devise.setup do |config|
     # When set to false, does not sign a user in automatically after their password is
     # changed. Defaults to true, so a user is signed in automatically after changing a password.
     # config.sign_in_after_change_password = true
+    # 0oapdmanjlzO9o6Lx5d7
+    # Lytj8OdpJ-5Zm3N2AfsL3zVYjyNP5jHi6S2pcH6iTX-hjMTkcTBwatntk_V_q5AC
 
     require "omniauth-okta"
     config.omniauth(:okta,
-                  ENV["OKTA_CLIENT_ID"],
-                  ENV["OKTA_CLIENT_SECRET"],
+                  "0oapdmanjlzO9o6Lx5d7",
+                  "Lytj8OdpJ-5Zm3N2AfsL3zVYjyNP5jHi6S2pcH6iTX-hjMTkcTBwatntk_V_q5AC",
                   scope: "openid profile email",
                   fields: [ "profile", "email" ],
                   client_options: {
-                    site:          "https://your-org.okta.com",
-                    authorize_url: "https://your-org.okta.com/oauth2/default/v1/authorize",
-                    token_url:     "https://your-org.okta.com/oauth2/default/v1/token",
-                    user_info_url: "https://your-org.okta.com/oauth2/default/v1/userinfo"
+                    site:          "https://dev-24606191.okta.com",
+                    authorize_url: "https://dev-24606191.okta.com/oauth2/default/v1/authorize",
+                    token_url:     "https://dev-24606191.okta.com/oauth2/default/v1/token",
+                    user_info_url: "https://dev-24606191.okta.com/oauth2/default/v1/userinfo"
                   },
                   strategy_class: OmniAuth::Strategies::Okta)
 end

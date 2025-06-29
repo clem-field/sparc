@@ -1,6 +1,7 @@
 <%= tag.div(flash[:alert], style: "color:red") if flash[:alert] %>
 <%= tag.div(flash[:notice], style: "color:green") if flash[:notice] %>
-<%= render "application/page_head"%>
+<%= render "application/head"%>
+<%= link_to "Home",root_path%> &nbsp;&nbsp;&nbsp;
 <div class="head">
   <head>
     <h2>
@@ -17,7 +18,7 @@
 
 
 <%= link_to "Forgot password?", new_password_path %>
-
-<%= form_tag('/auth/developer', method: 'post', data: {turbo: false}) do %>
-  <button type='submit'>Login with Developer</button>
+<br><br>
+<%= form_tag('sessions#new', method: 'post', data: {turbo: false}) do %>
+  <button type='submit'>Login with Okta</button>
 <% end %>

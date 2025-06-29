@@ -1,11 +1,37 @@
-<%= render "application/head" %>
-
-
-<div id="controls">
-    <% @controls.each do |control| %>
+<head>
+<%= render "application/page_head" %>
+<%= turbo_refreshes_with method: :morph, scroll: :preserve %>
+</head>
+<div>
+    <div>
         <div>
-            <%= link_to control.control_id, control %>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th id="control-family" class="table-header">
+                            <%= sort_link(column: "family", label: "Family") %>
+                        </th>
+                        <th id="control-title" class="table-header">
+                            <%= sort_link(column: "title", label: "Title") %>
+                        </th>
+                        <th id="control-id" class="table-header">
+                            <%= sort_link(column: "control_id", label: "Control ID") %>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% @controls.each do |control| %>
+                        <tr>
+                            <td class="table-body"><%= control.family %></td>
+                            <td class="table-body"><%= control.title %></td>
+                            <td class="table-body"><%= link_to control.control_id, control %></td>
+                        </tr>
+                    <% end %>
+                </tbody>
+            </table>
         </div>
-    <% end %>
+    </div>
 </div>
+<footer>
 <%= render "application/footer" %>
+</footer>
