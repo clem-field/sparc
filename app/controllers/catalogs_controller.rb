@@ -1,5 +1,5 @@
 class CatalogsController < ApplicationController
-  before_action :authenticate_user! :set_control, only: %i[ show edit update]
+  before_action :authenticate_user!, :set_control, only: %i[ show edit update]
   skip_before_action :authenticate_user!, only: %i[ index show
 ]
   def index
