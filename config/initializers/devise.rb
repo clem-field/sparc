@@ -312,18 +312,42 @@ Devise.setup do |config|
     # config.sign_in_after_change_password = true
     # 0oapdmanjlzO9o6Lx5d7
     # Lytj8OdpJ-5Zm3N2AfsL3zVYjyNP5jHi6S2pcH6iTX-hjMTkcTBwatntk_V_q5AC
+    
+    # Local login
+    config.mailer_sender = 'please-change-me@example.com'
+    config.authentication_keys = [:email]
+    
+    # OmniAuth config for Okta OIDC
+    config.omniauth :openid_connect, {
+    name: :okta,
+    scope: [:openid, :email, :profile],
+    response_type: :code,
+    client_options: {
+      port: 443,
+      scheme: 'https',
+      host: ENV['OKTA_DOMAIN'], # e.g. dev-123456.okta.com
+      identifier: ENV['OKTA_CLIENT_ID'],
+      secret: ENV['OKTA_CLIENT_SECRET'],
+      redirect_uri: "#{ENV['APP_URL']}/users/auth/openid_connect/callback"
+    },
+    discovery: true,
+    issuer: ENV['OKTA_ISSUER'] # e.g. https://dev-123456.okta.com/oauth2/default
+  }
 
-    require "omniauth-okta"
-    config.omniauth(:okta,
-                  "0oapdmanjlzO9o6Lx5d7",
-                  "Lytj8OdpJ-5Zm3N2AfsL3zVYjyNP5jHi6S2pcH6iTX-hjMTkcTBwatntk_V_q5AC",
-                  scope: "openid profile email",
-                  fields: [ "profile", "email" ],
-                  client_options: {
-                    site:          "https://dev-24606191.okta.com",
-                    authorize_url: "https://dev-24606191.okta.com/oauth2/default/v1/authorize",
-                    token_url:     "https://dev-24606191.okta.com/oauth2/default/v1/token",
-                    user_info_url: "https://dev-24606191.okta.com/oauth2/default/v1/userinfo"
-                  },
-                  strategy_class: OmniAuth::Strategies::Okta)
+    config.omniauth :openid_connect, {
+    name: :oidc,
+    scope: [:openid, :email, :profile],
+    response_type: :code,
+    client_options: {
+      identifier: ENV['OIDC_CLIENT_ID'],
+      secret: ENV['OIDC_CLIENT_SECRET'],
+      redirect_uri: ENV['OIDC_REDIRECT_URI'],
+      host: ENV['OIDC_HOST'],
+      scheme: 'https',
+      authorization_endpoint: '/oauth2/default/v1/authorize',
+      token_endpoint: '/oauth2/default/v1/token',
+      userinfo_endpoint: '/oauth2/default/v1/userinfo'
+    }
+  }
+
 end

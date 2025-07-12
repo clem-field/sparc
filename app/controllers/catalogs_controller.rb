@@ -1,6 +1,6 @@
 class CatalogsController < ApplicationController
-  before_action :set_control, only: %i[ show edit update]
-  allow_unauthenticated_access only: %i[ index show
+  before_action :authenticate_user! :set_control, only: %i[ show edit update]
+  skip_before_action :authenticate_user!, only: %i[ index show
 ]
   def index
     if params[:column].present?

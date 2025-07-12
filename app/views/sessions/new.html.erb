@@ -1,3 +1,8 @@
+<%# Ensure Devise helpers are defined %>
+<% resource ||= User.new %>
+<% resource_name ||= :user %>
+<% devise_mapping ||= Devise.mappings[:user] %>
+
 <%= tag.div(flash[:alert], style: "color:red") if flash[:alert] %>
 <%= tag.div(flash[:notice], style: "color:green") if flash[:notice] %>
 <%= render "application/head"%>
@@ -8,17 +13,27 @@
       Please sign in to create or edit control parts
     </h2>
   </head>
-</div>
-  <%= form_with url: session_path do |form| %>
-  <%= form.email_field :email_address, required: true, autofocus: true, autocomplete: "username", placeholder: "Enter your email address", value: params[:email_address] %><br><br>
-  <%= form.password_field :password, required: true, autocomplete: "current-password", placeholder: "Enter your password", maxlength: 72 %><br><br>
-  <%= form.submit "Sign in" %>
-<% end %>
-<br>
 
-
-<%= link_to "Forgot password?", new_password_path %>
 <br><br>
-<%= form_tag('sessions#new', method: 'post', data: {turbo: false}) do %>
-  <button type='submit'>Login with Okta</button>
+<h3>Sign in</h3>
+
+<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+  <div>
+    <%= f.label :email %><br />
+    <%= f.email_field :email, autofocus: true %>
+  </div>
+
+  <div>
+    <%= f.label :password %><br />
+    <%= f.password_field :password %>
+  </div>
+
+  <div>
+    <%= f.submit "Log in" %>
+  </div>
 <% end %>
+
+<hr>
+
+<%= link_to "Log in with Okta", user_okta_omniauth_authorize_path, class: "button" %>
+

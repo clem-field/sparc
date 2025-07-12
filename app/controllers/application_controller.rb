@@ -2,4 +2,14 @@ class ApplicationController < ActionController::Base
   include Authentication
   # Only allow modern browsers supporting webp images, web push, badges, import maps, CSS nesting, and CSS :has.
   allow_browser versions: :modern
+
+  helper_method :current_user
+
+  def current_user
+    session[:user_info]
+  end
+
+  def authenticate_user!
+    redirect_to '/' unless current_user
+  end
 end

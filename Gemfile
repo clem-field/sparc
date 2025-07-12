@@ -36,6 +36,8 @@ gem "bcrypt", "~> 3.1.7"
 gem "roo", "~> 2.10"
 # Using Okta with omni-auth
 gem "omniauth-okta"
+# for dev env vars
+gem 'dotenv-rails'
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem "tzinfo-data", platforms: %i[ windows jruby ]
