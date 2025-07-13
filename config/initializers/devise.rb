@@ -317,7 +317,7 @@ Devise.setup do |config|
   # Local login
   config.mailer_sender = "please-change-me@example.com"
   config.authentication_keys = [ :email ]
-  
+
   # Configs for Omniauth-OIDC
   config.omniauth :openid_connect, {
   name: :oidc,
