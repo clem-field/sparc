@@ -37,7 +37,7 @@ gem "roo", "~> 2.10"
 # Using Okta with omni-auth
 gem "omniauth-okta"
 # for dev env vars
-gem "dotenv-rails"
+gem "dotenv-rails", groups: [:development, :test]
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem "tzinfo-data", platforms: %i[ windows jruby ]
@@ -80,5 +80,3 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
 end
-
-gem "roo", "~> 2.10"

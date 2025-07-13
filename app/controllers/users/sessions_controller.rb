@@ -12,28 +12,15 @@ class Users::SessionsController < Devise::SessionsController
   def destroy
     super
   end
-  # def create
-  #   super do |user|
-  #     Rails.logger.info "Local login for #{user.email} at #{Time.now.utc}"
-  #     # You could set a session variable if you want to track login source:
-  #     session[:login_source] = 'local'
-  #   end
+  
+  # protected
+
+  # def after_sign_in_path_for(resource)
+  #   # Customize post-login redirect
+  #   stored_location_for(resource) || dashboard_path
   # end
 
-  # def destroy
-  #   super do |user|
-  #     Rails.logger.info "User #{user&.email} signed out at #{Time.now.utc}"
-  #   end
+  # def after_sign_out_path_for(resource_or_scope)
+  #   root_path
   # end
-
-  protected
-
-  def after_sign_in_path_for(resource)
-    # Customize post-login redirect
-    stored_location_for(resource) || dashboard_path
-  end
-
-  def after_sign_out_path_for(resource_or_scope)
-    root_path
-  end
 end

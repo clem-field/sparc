@@ -1,27 +1,33 @@
-<h2>Log in</h2>
+<%# Ensure Devise helpers are defined %>
+<% resource ||= User.new %>
+<% resource_name ||= :user %>
+<% devise_mapping ||= Devise.mappings[:user] %>
+
+<%= tag.div(flash[:alert], style: "color:red") if flash[:alert] %>
+<%= tag.div(flash[:notice], style: "color:green") if flash[:notice] %>
+<%= render "application/head"%>
+<%= link_to "Home",root_path%> &nbsp;&nbsp;&nbsp;
+<div class="head">
+  <head>
+    <h2>
+      Please sign in to create or edit control parts
+    </h2>
+  </head>
+
+<br><br>
+<h3>Sign in</h3>
 
 <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-  <% if devise_error_messages! %>
-    <div class="error-messages"><%= devise_error_messages! %></div>
-  <% end %>
+  <%= f.label :email %>
+  <%= f.email_field :email, autofocus: true %>
 
-  <div class="field">
-    <%= f.label :email %><br>
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-  </div>
+  <%= f.label :password %>
+  <%= f.password_field :password %>
 
-  <div class="field">
-    <%= f.label :password %><br>
-    <%= f.password_field :password, autocomplete: "current-password" %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit "Log in" %>
-  </div>
+  <%= f.submit "Log in" %>
 <% end %>
 
 <hr>
 
-<h3>Or sign in with:</h3>
+<%= link_to "Sign in with Okta", user_oidc_omniauth_authorize_path, class: "button" %>
 
-<%= link_to "Sign in with Okta", user_okta_omniauth_authorize_path, class: "btn btn-primary" %>

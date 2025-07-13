@@ -2,7 +2,7 @@ module Authentication
   extend ActiveSupport::Concern
 
   included do
-    before_action :require_authentication
+    before_action :require_authentication, unless: :devise_controller?
     helper_method :authenticated?
   end
 
