@@ -6,21 +6,25 @@ class Users::SessionsController < Devise::SessionsController
   end
 
   def create
-    super  # this calls Devise's built-in password authentication
+    if params[:commit] == "Log in" && params[:user].present?
+      super  # Local login via Devise
+    else
+      redirect_to user_okta_omniauth_authorize_path  # Redirect to Okta login
+    end
   end
 
   def destroy
     super
   end
 
-  # protected
+  protected
 
-  # def after_sign_in_path_for(resource)
-  #   # Customize post-login redirect
-  #   stored_location_for(resource) || dashboard_path
-  # end
+  def after_sign_in_path_for(resource)
+    # Customize post-login redirect
+    stored_location_for(resource) || dashboard_path
+  end
 
-  # def after_sign_out_path_for(resource_or_scope)
-  #   root_path
-  # end
+  def after_sign_out_path_for(resource_or_scope)
+    root_path
+  end
 end

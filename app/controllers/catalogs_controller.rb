@@ -1,7 +1,6 @@
 class CatalogsController < ApplicationController
-  before_action :authenticate_user!, :set_control, only: %i[ show edit update]
-  skip_before_action :authenticate_user!, only: %i[ index show
-]
+  skip_before_action :authenticate_user!, only: [ :index, :show ]
+
   def index
     if params[:column].present?
       @controls = Catalog.order("#{params[:column]} #{params[:direction]}")
@@ -12,6 +11,7 @@ class CatalogsController < ApplicationController
   end
 
   def show
+    @control = Catalog.find(params[:id])
   end
 
   def new

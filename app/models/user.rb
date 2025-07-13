@@ -2,8 +2,8 @@ class User < ApplicationRecord
   # normalizes :email_address, with: ->(e) { e.strip.downcase }
 
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable,
-         :omniauthable, omniauth_providers: [ :oidc ]
+       :recoverable, :rememberable, :validatable,
+       :omniauthable, omniauth_providers: [ :okta ]
 
   def self.from_omniauth(auth)
     return nil unless auth&.info

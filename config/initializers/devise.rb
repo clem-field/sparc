@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require "omniauth/strategies/openid_connect"
 # Assuming you have not yet modified this file, each configuration option below
 # is set to its default value. Note that some are commented out while others
 # are not: uncommented lines are intended to protect your configuration from
@@ -9,7 +10,38 @@
 # Use this hook to configure devise mailer, warden hooks and so forth.
 # Many of these configuration options can be set straight in your model.
 Devise.setup do |config|
+  # Local login
+  config.mailer_sender = "please-change-me@example.com"
+  config.authentication_keys = [ :email ]
+
+  require "devise/orm/active_record"
+
+  # Omniauth Path Prefix
+  config.omniauth_path_prefix = "/users/auth"
+  config.scoped_views = true
+
+  # Configs for Omniauth-OIDC
+  config.omniauth :openid_connect, {
+    name: :okta,
+    scope: [ :openid, :email, :profile ],
+    response_type: :code,
+    issuer: ENV["OIDC_ISSUER"],
+    discovery: true,
+    client_options: {
+      port: 443,
+      scheme: "https",
+      host: ENV["OIDC_HOST"],
+      identifier: ENV["OIDC_CLIENT_ID"],
+      secret: ENV["OIDC_CLIENT_SECRET"],
+      redirect_uri: ENV["OIDC_REDIRECT_URI"]
+    }
+  }
+
+  Rails.logger.debug "ENV['OIDC_ISSUER']: #{ENV['OIDC_ISSUER'].present?}"
   Rails.logger.debug "ENV['OIDC_CLIENT_ID']: #{ENV['OIDC_CLIENT_ID'].present?}"
+  Rails.logger.debug "ENV['OIDC_CLIENT_SECRET']: #{ENV['OIDC_CLIENT_SECRET'].present?}"
+  Rails.logger.debug "ENV['OIDC_REDIRECT_URI']: #{ENV['OIDC_REDIRECT_URI'].present?}"
+  Rails.logger.debug "ENV['OIDC_HOST']: #{ENV['OIDC_HOST'].present?}"
   # The secret key used by Devise. Devise uses this key to generate
   # random tokens. Changing this key will render invalid all existing
   # confirmation, reset password and unlock tokens in the database.
@@ -25,7 +57,6 @@ Devise.setup do |config|
   # Configure the e-mail address which will be shown in Devise::Mailer,
   # note that it will be overwritten if you use your own mailer class
   # with default "from" parameter.
-  config.mailer_sender = "please-change-me-at-config-initializers-devise@example.com"
 
   # Configure the class responsible to send e-mails.
   # config.mailer = 'Devise::Mailer'
@@ -314,26 +345,8 @@ Devise.setup do |config|
   # 0oapdmanjlzO9o6Lx5d7
   # Lytj8OdpJ-5Zm3N2AfsL3zVYjyNP5jHi6S2pcH6iTX-hjMTkcTBwatntk_V_q5AC
 
-  # Local login
-  config.mailer_sender = "please-change-me@example.com"
-  config.authentication_keys = [ :email ]
 
-  # Configs for Omniauth-OIDC
-  config.omniauth :openid_connect, {
-  name: :oidc,
-  scope: [ :openid, :email, :profile ],
-  response_type: :code,
-  issuer: ENV["OIDC_ISSUER"],
-  discovery: true,
-  client_options: {
-    identifier: ENV["OIDC_CLIENT_ID"],
-    secret: ENV["OIDC_CLIENT_SECRET"],
-    redirect_uri: ENV["OIDC_REDIRECT_URI"]
-    }
-  }
 
-  config.omniauth_path_prefix = "/users/auth"
-  config.scoped_views = true
 
   # Add loging for validation of starting
   OmniAuth.config.on_failure = Proc.new { |env|
@@ -351,6 +364,8 @@ Devise.setup do |config|
     Devise.omniauth_configs.each do |key, config|
       Rails.logger.debug "Provider: #{key}, Strategy: #{config.strategy_class}"
     end
+    Rails.logger.debug "Devise mappings: #{Devise.mappings.inspect}"
+    Rails.logger.debug "OmniAuth configs: #{Devise.omniauth_configs.inspect}"
   end
 
   Rails.logger.debug "== Devise Omniauth Providers: #{Devise.omniauth_configs.keys.inspect}"
