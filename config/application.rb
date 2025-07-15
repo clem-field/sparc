@@ -2,9 +2,12 @@ require_relative "boot"
 require "rails/all"
 require "dotenv/load"
 
+
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
+
+require "devise"
 
 Dotenv::Rails.load if defined?(Dotenv)
 
@@ -25,5 +28,6 @@ module Sparc
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
+    config.action_dispatch.cookies_same_site_protection = :lax
   end
 end

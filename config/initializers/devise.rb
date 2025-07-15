@@ -36,7 +36,20 @@ Devise.setup do |config|
       redirect_uri: ENV["OIDC_REDIRECT_URI"]
     }
   }
+  # Additional Login logging
+  config.warden do |manager|
+    manager.failure_app = ->(env) {
+      Rails.logger.error "[Devise] Authentication failed: #{env['warden.options'].inspect}"
+      Devise::FailureApp.call(env)
+    }
+  end
+  Warden::Manager.after_set_user except: :fetch do |user, auth, opts|
+    Rails.logger.info "[Devise] Successfully authenticated user #{user.email} for scope #{opts[:scope]}"
+  end
 
+  Warden::Manager.after_authentication do |user, auth, opts|
+    Rails.logger.info "[Devise] User session stored for #{user.email}"
+  end
   Rails.logger.debug "ENV['OIDC_ISSUER']: #{ENV['OIDC_ISSUER'].present?}"
   Rails.logger.debug "ENV['OIDC_CLIENT_ID']: #{ENV['OIDC_CLIENT_ID'].present?}"
   Rails.logger.debug "ENV['OIDC_CLIENT_SECRET']: #{ENV['OIDC_CLIENT_SECRET'].present?}"
@@ -364,9 +377,17 @@ Devise.setup do |config|
     Devise.omniauth_configs.each do |key, config|
       Rails.logger.debug "Provider: #{key}, Strategy: #{config.strategy_class}"
     end
+    if Devise.mappings.empty?
+      Rails.logger.warn("[Devise] No mappings were registered! Check require order in routes.rb")
+    end
     Rails.logger.debug "Devise mappings: #{Devise.mappings.inspect}"
     Rails.logger.debug "OmniAuth configs: #{Devise.omniauth_configs.inspect}"
   end
 
   Rails.logger.debug "== Devise Omniauth Providers: #{Devise.omniauth_configs.keys.inspect}"
 end
+
+# config/initializers/devise.rb
+
+# Ensure Devise recognizes navigational requests
+Devise.navigational_formats = [ "*/*", :html, :turbo_stream ]

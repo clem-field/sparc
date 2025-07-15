@@ -17,7 +17,7 @@
 <br><br>
 <h3>Sign in</h3>
 
-<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+<%= form_for(resource, as: resource_name, url: session_path(resource_name), local: true) do |f| %>
   <%= f.label :email %>
   <%= f.email_field :email, autofocus: true %>
 

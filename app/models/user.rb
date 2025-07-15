@@ -14,4 +14,8 @@ class User < ApplicationRecord
       user.password = Devise.friendly_token[0, 20]
     end
   end
+
+  # def empty?
+  #   raise "empty? called on User"
+  # end
 end

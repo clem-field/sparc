@@ -17,7 +17,7 @@ gem "stimulus-rails"
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 gem "jbuilder"
 # Add Devise for authentication
-gem "devise"
+gem "devise", github: "heartcombo/devise"
 # Use Omniauth to support additional login providers
 gem "omniauth", "~> 2.1"
 # LDAP Auth

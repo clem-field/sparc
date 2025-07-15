@@ -1,7 +1,13 @@
+require "devise"
+require Rails.root.join("app/models/user.rb")
+
 Rails.application.routes.draw do
   # Adding omniauth_openid_connect
+
   devise_for :users, controllers: {
     sessions: "users/sessions",
+    registrations: "devise/registrations",
+    passwords: "devise/passwords",
     omniauth_callbacks: "users/omniauth_callbacks"
   }
 
